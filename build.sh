@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Determine APP_HOME directory (the parent of this file)
 PRG="$0"
