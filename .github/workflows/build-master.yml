@@ -26,4 +26,9 @@ jobs:
         java-version: ${{ matrix.java }}
     - name: Build
       run: ./build.sh
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: ceylon-build-artifacts
+        path: artifacts
 
