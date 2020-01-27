@@ -64,5 +64,11 @@ export PATH="$CEYLON_HOME/bin:$PATH"
 (cd ceylon.tool.converter.java2ceylon && ant publish ide-quick) &&
 (cd ceylon-ide-eclipse && mvn clean install -DskipTests) &&
 (cd ceylon && ant clean package) &&
-true
+mkdir artifacts &&
+mkdir artifacts/ceylon &&
+mkdir artifacts/ceylon-sdk &&
+mkdir artifacts/ceylon-eclipse-plugin &&
+cp -a ceylon/dist/ceylon*zip artifacts/ceylon &&
+cp -a ceylon-sdk/modules artifacts/ceylon-sdk &&
+cp -a ceylon-ide-eclipse/site/target/repository artifacts/ceylon-eclipse-plugin
 
