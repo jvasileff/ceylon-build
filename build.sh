@@ -39,7 +39,7 @@ fail() {
 cd "$APP_HOME" > /dev/null
 
 # Start from a clean path
-export PATH=/bin:/usr/bin
+export PATH=/usr/local/bin:/usr/bin:/bin
 
 # Add Java to path
 export PATH="$JAVA_HOME/bin:$PATH"
