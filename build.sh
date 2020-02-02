@@ -33,8 +33,8 @@ APP_HOME="`pwd -P`"
 cd "$SAVED" > /dev/null
 
 fail() {
-  echo "error: $@"
-  exit 1
+    echo "error: $@"
+    exit 1
 }
 
 # Start from a clean path
@@ -83,19 +83,21 @@ echo
 echo "----------------------------------------"
 echo "Build"
 echo "----------------------------------------"
+[ -d ~/.ceylon ] && echo -e "** WARNING ** ~/.ceylon already exists, build may reuse old artifacts\n"
 
 (cd ceylon && ant dist)
 (cd ceylon-sdk && ant publish ide-quick)
+(cd ceylon/compiler-java && ant test-quick)
 (cd ceylon.formatter && ant publish ide-quick)
 (cd ceylon-ide-common && ant publish ide-quick)
 (cd ceylon.tool.converter.java2ceylon && ant publish ide-quick)
 (cd ceylon-ide-eclipse && mvn clean install -DskipTests)
 (cd ceylon && ant clean package)
 
-mkdir artifacts
-mkdir artifacts/ceylon
-mkdir artifacts/ceylon-sdk
-mkdir artifacts/ceylon-eclipse-plugin
-cp -a ceylon/dist/ceylon*zip artifacts/ceylon
-cp -a ceylon-sdk/modules artifacts/ceylon-sdk
-cp -a ceylon-ide-eclipse/site/target/repository artifacts/ceylon-eclipse-plugin
+mkdir -p build/artifacts/ceylon
+mkdir -p build/artifacts/ceylon-sdk
+mkdir -p build/artifacts/ceylon-eclipse-plugin
+
+cp -a ceylon/dist/ceylon*zip build/artifacts/ceylon
+cp -a ceylon-sdk/modules build/artifacts/ceylon-sdk
+cp -a ceylon-ide-eclipse/site/target/repository build/artifacts/ceylon-eclipse-plugin
