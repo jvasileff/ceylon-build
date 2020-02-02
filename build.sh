@@ -87,7 +87,7 @@ echo "----------------------------------------"
 
 (cd ceylon && ant dist)
 (cd ceylon-sdk && ant publish ide-quick)
-(cd ceylon/compiler-java && ant test-quick)
+(cd ceylon && ant test-quick)
 (cd ceylon.formatter && ant publish ide-quick)
 (cd ceylon-ide-common && ant publish ide-quick)
 (cd ceylon.tool.converter.java2ceylon && ant publish ide-quick)
