@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # ISSUES
 #
 # - If PATH contains anything that might lead to plugin discovery in
@@ -35,9 +37,6 @@ fail() {
   exit 1
 }
 
-# Work from the APP_HOME directory
-cd "$APP_HOME" > /dev/null
-
 # Start from a clean path
 export PATH=/usr/local/bin:/usr/bin:/bin
 
@@ -56,19 +55,47 @@ export PATH="$ANT_HOME/bin:$PATH"
 export CEYLON_HOME="$APP_HOME/ceylon/dist/dist"
 export PATH="$CEYLON_HOME/bin:$PATH"
 
-# Build
-(cd ceylon && ant dist) &&
-(cd ceylon-sdk && ant publish ide-quick) &&
-(cd ceylon.formatter && ant publish ide-quick) &&
-(cd ceylon-ide-common && ant publish ide-quick) &&
-(cd ceylon.tool.converter.java2ceylon && ant publish ide-quick) &&
-(cd ceylon-ide-eclipse && mvn clean install -DskipTests) &&
-(cd ceylon && ant clean package) &&
-mkdir artifacts &&
-mkdir artifacts/ceylon &&
-mkdir artifacts/ceylon-sdk &&
-mkdir artifacts/ceylon-eclipse-plugin &&
-cp -a ceylon/dist/ceylon*zip artifacts/ceylon &&
-cp -a ceylon-sdk/modules artifacts/ceylon-sdk &&
-cp -a ceylon-ide-eclipse/site/target/repository artifacts/ceylon-eclipse-plugin
+# Increase memory for Java 1.7
+export JAVA_OPTS="-Xmx2048m -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled"
+export ANT_OPTS="-Xmx2048m -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled"
 
+# Work from the APP_HOME directory
+cd "$APP_HOME" > /dev/null
+
+# Build
+echo "----------------------------------------"
+echo "Environment"
+echo "----------------------------------------"
+echo "JAVA_OPTS: \"$JAVA_OPTS\""
+echo
+echo "ANT_OPTS: \"$ANT_OPTS\""
+echo
+echo "PATH: \"$PATH\""
+echo
+java -version
+echo
+ant -version
+echo
+mvn -version
+echo
+uname -a
+echo
+echo "----------------------------------------"
+echo "Build"
+echo "----------------------------------------"
+
+(cd ceylon && ant dist)
+(cd ceylon-sdk && ant publish ide-quick)
+(cd ceylon.formatter && ant publish ide-quick)
+(cd ceylon-ide-common && ant publish ide-quick)
+(cd ceylon.tool.converter.java2ceylon && ant publish ide-quick)
+(cd ceylon-ide-eclipse && mvn clean install -DskipTests)
+(cd ceylon && ant clean package)
+
+mkdir artifacts
+mkdir artifacts/ceylon
+mkdir artifacts/ceylon-sdk
+mkdir artifacts/ceylon-eclipse-plugin
+cp -a ceylon/dist/ceylon*zip artifacts/ceylon
+cp -a ceylon-sdk/modules artifacts/ceylon-sdk
+cp -a ceylon-ide-eclipse/site/target/repository artifacts/ceylon-eclipse-plugin
