@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        java: ['8']
+        java: ['7']
     steps:
     - name: Checkout source
       uses: actions/checkout@v2
