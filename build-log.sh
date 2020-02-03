@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
+set -eu
 
-# Determine APP_HOME directory (the parent of this file)
+# Determine APP_HOME directory
 PRG="$0"
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
@@ -18,9 +18,13 @@ cd "`dirname \"$PRG\"`" > /dev/null
 APP_HOME="`pwd -P`"
 cd "$SAVED" > /dev/null
 
+# Setup environment
+. "$APP_HOME/env.sh"
+
 # Work from the APP_HOME directory
 cd "$APP_HOME" > /dev/null
 
 # Run build.sh
 mkdir -p build
-time ./build.sh 2>&1 | tee "build/log-$(date "+%Y-%m-%dT%H%M%S").txt"
+time ./build.sh 2>&1 | tee "build/log-`date "+%Y-%m-%dT%H%M%S"`.txt"
+

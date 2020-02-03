@@ -1,6 +1,4 @@
-#!/bin/bash
-
-set -euo pipefail
+#!/bin/sh
 
 # ISSUES
 #
@@ -16,7 +14,9 @@ set -euo pipefail
 # - Directories named .ceylon contained within any ancestor directories may
 #   affect the build... and therefore should not exist.
 
-# Determine APP_HOME directory (the parent of this file)
+set -eu
+
+# Determine APP_HOME directory
 PRG="$0"
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
@@ -32,32 +32,8 @@ cd "`dirname \"$PRG\"`" > /dev/null
 APP_HOME="`pwd -P`"
 cd "$SAVED" > /dev/null
 
-fail() {
-    echo "error: $@"
-    exit 1
-}
-
-# Start from a clean path
-export PATH=/usr/local/bin:/usr/bin:/bin
-
-# Add Java to path
-export PATH="$JAVA_HOME/bin:$PATH"
-
-# Setup Maven environment
-export MAVEN_HOME="$APP_HOME/apache-maven"
-export PATH="$MAVEN_HOME/bin:$PATH"
-
-# Setup Ant environment
-export ANT_HOME="$APP_HOME/apache-ant"
-export PATH="$ANT_HOME/bin:$PATH"
-
-# Setup Ceylon environment
-export CEYLON_HOME="$APP_HOME/ceylon/dist/dist"
-export PATH="$CEYLON_HOME/bin:$PATH"
-
-# Increase memory for Java 1.7
-export JAVA_OPTS="-Xmx2048m -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled"
-export ANT_OPTS="-Xmx2048m -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled"
+# Setup environment
+. "$APP_HOME/env.sh"
 
 # Work from the APP_HOME directory
 cd "$APP_HOME" > /dev/null
@@ -104,3 +80,4 @@ mkdir -p build/artifacts/ceylon-eclipse-plugin
 cp -a ceylon/dist/ceylon*zip build/artifacts/ceylon
 cp -a ceylon-sdk/modules build/artifacts/ceylon-sdk
 cp -a ceylon-ide-eclipse/site/target/repository build/artifacts/ceylon-eclipse-plugin
+
