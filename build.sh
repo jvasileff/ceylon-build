@@ -88,14 +88,13 @@ echo "----------------------------------------"
 (cd ceylon && ant dist)
 (cd ceylon-sdk && ant publish ide-quick)
 
-(cd ceylon && ant test-quick)
+#(cd ceylon && ant test-quick)
 #(cd ceylon-sdk && ant test-quick)
 
-#(cd ceylon.formatter && ant test publish ide-quick)
 (cd ceylon.formatter && ant publish ide-quick)
 (cd ceylon-ide-common && ant test publish ide-quick)
 (cd ceylon.tool.converter.java2ceylon && ant test publish ide-quick)
-#(cd ceylon-ide-eclipse && mvn clean install -DskipTests)
+(cd ceylon-ide-eclipse && mvn clean install -DskipTests)
 (cd ceylon && ant clean package)
 
 mkdir -p build/artifacts/ceylon
