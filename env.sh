@@ -17,7 +17,7 @@ APP_HOME="`pwd -P`"
 cd "$SAVED" > /dev/null
 
 # Start from a clean path
-export PATH=/usr/local/bin:/usr/bin:/bin
+export PATH=/usr/local/sbin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin
 
 # Add Java to path
 export PATH="$JAVA_HOME/bin:$PATH"
