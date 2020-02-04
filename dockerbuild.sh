@@ -55,7 +55,7 @@ docker run --rm -t -i \
         git clean -fxd
         git submodule foreach git clean -fxd
         ./build.sh
-        cp -a artifacts /output"
+        cp -a build/artifacts /output"
 
 echo "\nbuild artifacts (if any) copied to $OUTPUT_DIR"
 
