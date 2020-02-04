@@ -34,7 +34,7 @@ export PATH="$ANT_HOME/bin:$PATH"
 export CEYLON_HOME="$APP_HOME/ceylon/dist/dist"
 export PATH="$CEYLON_HOME/bin:$PATH"
 
-# Increase memory for Java 1.7
-export JAVA_OPTS="-Xmx2048m -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled"
-export ANT_OPTS="-Xmx2048m -XX:MaxPermSize=512m -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled"
+# Clear Java OPTS
+unset JAVA_OPTS
+unset ANT_OPTS
 

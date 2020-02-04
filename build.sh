@@ -42,11 +42,11 @@ cd "$APP_HOME" > /dev/null
 echo "----------------------------------------"
 echo "Environment"
 echo "----------------------------------------"
-echo "JAVA_OPTS: \"$JAVA_OPTS\""
+echo "JAVA_OPTS: ${JAVA_OPTS-}"
 echo
-echo "ANT_OPTS: \"$ANT_OPTS\""
+echo "ANT_OPTS: ${ANT_OPTS-}"
 echo
-echo "PATH: \"$PATH\""
+echo "PATH: ${PATH}"
 echo
 java -version
 echo
@@ -59,12 +59,12 @@ echo
 echo "----------------------------------------"
 echo "Build"
 echo "----------------------------------------"
-[ -d ~/.ceylon ] && echo -e "** WARNING ** ~/.ceylon already exists, build may reuse old artifacts\n"
+[ -d ~/.ceylon ] && echo "** WARNING ** ~/.ceylon already exists, build may reuse old artifacts\n"
 
 (cd ceylon && ant dist)
 (cd ceylon-sdk && ant publish ide-quick)
 
-#(cd ceylon && ant test-quick)
+(cd ceylon && ant test-quick)
 #(cd ceylon-sdk && ant test-quick)
 
 (cd ceylon.formatter && ant publish ide-quick)

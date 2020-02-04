@@ -30,11 +30,11 @@ cd "$SAVED" > /dev/null
 
 echo "building Docker image"
 
-# adoptopenjdk:8u232-b09-jdk-hotspot-bionic \
-# openjdk:7u221-jessie
+# FROM adoptopenjdk:8u232-b09-jdk-hotspot-bionic
+# FROM openjdk:7u221-jessie
 
 BASE_IMAGE=`docker build -q - << EOF
-FROM openjdk:7u221-jessie
+FROM adoptopenjdk:8u232-b09-jdk-hotspot-bionic
 
 RUN apt-get update &&\
     apt-get install -y git &&\
