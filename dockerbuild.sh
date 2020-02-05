@@ -55,8 +55,8 @@ docker run --rm -t -i \
         cp -a /project work
         cd work
         git clean -fxd
-        git submodule foreach git clean -fxd
         git checkout .
+        git submodule foreach git clean -fxd
         git submodule foreach git checkout .
         ./build.sh
         cp -a build/artifacts /output
