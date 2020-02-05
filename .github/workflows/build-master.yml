@@ -33,7 +33,11 @@ jobs:
         java-version: ${{ matrix.java }}
     - name: Build
       run: ./build.sh
+    - name: Copy test results
+      if: failure()
+      run: ./copyTestResults.sh
     - name: Upload artifacts
+      if: always()
       uses: actions/upload-artifact@v1
       with:
         name: ceylon-build-artifacts
