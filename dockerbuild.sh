@@ -39,6 +39,7 @@ FROM adoptopenjdk:8u232-b09-jdk-hotspot-bionic
 RUN apt-get update &&\
     apt-get install -y git &&\
     apt-get install -y vim &&\
+    apt-get install -y nodejs &&\
     rm -rf /var/lib/apt/lists/*
 EOF
 `
