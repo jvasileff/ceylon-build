@@ -17,7 +17,7 @@
 set -eu
 
 # Determine APP_HOME directory
-PRG="$0"
+PRG="${BASH_SOURCE-$0}"
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
     link=`expr "$ls" : '.*-> \(.*\)$'`

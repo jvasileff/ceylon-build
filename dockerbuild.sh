@@ -3,7 +3,7 @@
 set -eu
 
 # Determine APP_HOME directory
-PRG="$0"
+PRG="${BASH_SOURCE-$0}"
 while [ -h "$PRG" ] ; do
     ls=`ls -ld "$PRG"`
     link=`expr "$ls" : '.*-> \(.*\)$'`
@@ -55,8 +55,11 @@ docker run --rm -t -i \
         cd work
         git clean -fxd
         git submodule foreach git clean -fxd
+        git checkout .
+        git submodule foreach git checkout .
         ./build.sh
-        cp -a build/artifacts /output"
+        cp -a build/artifacts /output
+    "
 
 echo "\nbuild artifacts (if any) copied to $OUTPUT_DIR"
 
