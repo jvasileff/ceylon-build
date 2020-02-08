@@ -1,6 +1,6 @@
 [submodule "ceylon"]
 	path = ceylon
-	url = https://github.com/jvasileff/ceylon.git
+	url = https://github.com/eclipse/ceylon.git
 [submodule "ceylon-sdk"]
 	path = ceylon-sdk
 	url = https://github.com/eclipse/ceylon-sdk.git
